@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 0 auto;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 20px;
+  color: #000;
+  margin-top: 200px;
+}
+
+.container h2 {
+  font-size: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form label {
+  font-size: 18px;
+  color: #000;
+  margin: 15px 0 5px 0;
+  display: block;
+}
+
+.form input,
+textarea {
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  padding: 10px;
+  height: 28px;
+  outline: none;
+}
+
+.form textarea {
+  height: 100px;
+}
