@@ -56,8 +56,8 @@ function App() {
         date,
         category,
       };
-      setPosts((prevPosts) => {
-        const updatedPosts = [...prevPosts, post];
+      setPosts((previousPosts) => {
+        const updatedPosts = [...previousPosts, post];
         localStorage.setItem("posts", JSON.stringify(updatedPosts));
         return updatedPosts;
       });
