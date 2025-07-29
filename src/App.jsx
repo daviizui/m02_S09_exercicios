@@ -5,6 +5,7 @@ function App() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const [date, setDate] = useState("");
 
   function savePost(event) {
     event.preventDefault();
@@ -44,6 +45,16 @@ function App() {
             placeholder="URL da imagem de capa"
             value={image}
             onChange={(e) => setImage(e.target.value)}
+          />
+          <label htmlFor="date">Data de publicação</label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            required
+            placeholder="Data de publicação"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
           />
           <button type="submit">Salvar</button>
         </form>
