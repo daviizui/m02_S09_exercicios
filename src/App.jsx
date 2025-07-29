@@ -6,6 +6,7 @@ function App() {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [date, setDate] = useState("");
+  const [category, setCategory] = useState("");
 
   function savePost(event) {
     event.preventDefault();
@@ -56,6 +57,20 @@ function App() {
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
+          <label htmlFor="category">Tipo do post</label>
+          <select
+            id="category"
+            name="category"
+            required
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="">Selecione uma categoria</option>
+            <option value="news">Artigo</option>
+            <option value="tutorial">Notícia</option>
+            <option value="review">Tutorial</option>
+            <option value="opinion">Entrevista</option>
+          </select>
           <button type="submit">Salvar</button>
         </form>
       </section>
