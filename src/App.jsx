@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import { ToastContainer, toast } from "react-toastify";
 
 function App() {
   const [title, setTitle] = useState("");
@@ -10,7 +11,30 @@ function App() {
 
   function savePost(event) {
     event.preventDefault();
-    console.log(title, description);
+    if (!title) {
+      toast.error("Título é obrigatório!");
+      return;
+    }
+    if (!description) {
+      toast.error("Descrição é obrigatória!");
+      return;
+    }
+    if (!image.startsWith("https://") && image.startsWith("http://")) {
+      toast.error("URL da imagem de capa é obrigatória!");
+      return;
+    }
+    if (date < new Date().toISOString().split("T")[0]) {
+      toast.error(
+        "A data de publicação deve ser uma data no presente ou futuro.!"
+      );
+      return;
+    }
+    if (!category) {
+      toast.error("Tipo do post é obrigatório!");
+      return;
+    } else {
+      toast.success("Post salvo com sucesso!");
+    }
   }
 
   return (
@@ -66,12 +90,13 @@ function App() {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="">Selecione uma categoria</option>
-            <option value="news">Artigo</option>
-            <option value="tutorial">Notícia</option>
-            <option value="review">Tutorial</option>
-            <option value="opinion">Entrevista</option>
+            <option value="artigo">Artigo</option>
+            <option value="noticia">Notícia</option>
+            <option value="tutorial">Tutorial</option>
+            <option value="entrevista">Entrevista</option>
           </select>
           <button type="submit">Salvar</button>
+          <ToastContainer />
         </form>
       </section>
     </>
