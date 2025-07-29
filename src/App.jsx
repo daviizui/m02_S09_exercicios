@@ -4,6 +4,7 @@ import "./App.css";
 function App() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
 
   function savePost(event) {
     event.preventDefault();
@@ -34,6 +35,16 @@ function App() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
+          <label htmlFor="image">URL da imagem de capa</label>
+          <input
+            type="url"
+            id="image"
+            name="image"
+            required
+            placeholder="URL da imagem de capa"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+          />
           <button type="submit">Salvar</button>
         </form>
       </section>
