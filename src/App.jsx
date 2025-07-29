@@ -33,7 +33,22 @@ function App() {
       toast.error("Tipo do post é obrigatório!");
       return;
     } else {
+      const post = {
+        title,
+        description,
+        image,
+        date,
+        category,
+      };
+      let allPosts = JSON.parse(localStorage.getItem("posts")) || [];
+      allPosts.push(post);
+      localStorage.setItem("posts", JSON.stringify(allPosts));
       toast.success("Post salvo com sucesso!");
+      setTitle("");
+      setDescription("");
+      setImage("");
+      setDate("");
+      setCategory("");
     }
   }
 
