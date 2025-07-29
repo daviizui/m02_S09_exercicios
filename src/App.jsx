@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -8,6 +8,12 @@ function App() {
   const [image, setImage] = useState("");
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const storedPosts = JSON.parse(localStorage.getItem("posts")) || [];
+    setPosts(storedPosts);
+  }, []);
 
   function savePost(event) {
     event.preventDefault();
@@ -19,13 +25,23 @@ function App() {
       toast.error("Descrição é obrigatória!");
       return;
     }
-    if (!image.startsWith("https://") && image.startsWith("http://")) {
-      toast.error("URL da imagem de capa é obrigatória!");
+    if (
+      !image ||
+      (!image.startsWith("https://") && !image.startsWith("http://"))
+    ) {
+      toast.error(
+        "A URL da imagem de capa é obrigatória e deve começar com 'http://' ou 'https://'!"
+      );
       return;
     }
-    if (date < new Date().toISOString().split("T")[0]) {
+    const today = new Date().toISOString().split("T")[0];
+    if (!date) {
+      toast.error("Data de publicação é obrigatória!");
+      return;
+    }
+    if (date < today) {
       toast.error(
-        "A data de publicação deve ser uma data no presente ou futuro.!"
+        "A data de publicação deve ser uma data no presente ou futuro."
       );
       return;
     }
@@ -40,9 +56,11 @@ function App() {
         date,
         category,
       };
-      let allPosts = JSON.parse(localStorage.getItem("posts")) || [];
-      allPosts.push(post);
-      localStorage.setItem("posts", JSON.stringify(allPosts));
+      setPosts((prevPosts) => {
+        const updatedPosts = [...prevPosts, post];
+        localStorage.setItem("posts", JSON.stringify(updatedPosts));
+        return updatedPosts;
+      });
       toast.success("Post salvo com sucesso!");
       setTitle("");
       setDescription("");
@@ -55,6 +73,14 @@ function App() {
   return (
     <>
       <section className="container">
+        <div>
+          <p>Total de posts:</p>
+          {posts.length > 0 ? (
+            <p>{posts.length}</p>
+          ) : (
+            <p>Nenhum post encontrado</p>
+          )}
+        </div>
         <h2>Novo Post</h2>
         <form className="form" onSubmit={savePost}>
           <label htmlFor="title">Título</label>
