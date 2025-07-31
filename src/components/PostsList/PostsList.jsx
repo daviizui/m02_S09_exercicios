@@ -10,19 +10,18 @@ export default function PostsList() {
     setPosts(storedPosts);
   }, []);
 
+  function handleDelete(id) {
+    const updatedPosts = posts.filter((post) => post.id !== id);
+    setPosts(updatedPosts);
+    localStorage.setItem("posts", JSON.stringify(updatedPosts));
+  }
+
   return (
     <section className="posts-list">
       <h2>Lista de Posts</h2>
       {posts.length > 0 ? (
-        posts.map((post, index) => (
-          <Post
-            key={index}
-            category={post.category}
-            title={post.title}
-            description={post.description}
-            date={post.date}
-            image={post.image}
-          />
+        posts.map((post) => (
+          <Post key={post.id} post={post} handleDelete={handleDelete} />
         ))
       ) : (
         <p>Nenhum post encontrado</p>

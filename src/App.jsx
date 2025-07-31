@@ -50,6 +50,7 @@ function App() {
       return;
     } else {
       const post = {
+        id: Date.now(),
         title,
         description,
         image,

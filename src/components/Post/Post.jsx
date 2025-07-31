@@ -1,7 +1,7 @@
 import "./Post.css";
 
-export default function Post({ category, title, description, date, image }) {
-  const postDate = new Date(date);
+export default function Post({ post, handleDelete }) {
+  const postDate = new Date(post.date);
   const formattedDate = postDate.toLocaleDateString("pt-BR", {
     year: "numeric",
     month: "2-digit",
@@ -10,14 +10,14 @@ export default function Post({ category, title, description, date, image }) {
 
   return (
     <article className="post">
-      <img src={image} alt={`Imagem de capa do post: ${title}`} />
+      <img src={post.image} alt={`Imagem de capa do post: ${post.title}`} />
       <div className="post-info">
-        <span>{category}</span>
-        <h3>{title}</h3>
-        <p>{description}</p>
+        <span>{post.category}</span>
+        <h3>{post.title}</h3>
+        <p>{post.description}</p>
         <div className="post-footer">
           <p>Publicadoem: {formattedDate}</p>
-          <button>Excluir</button>
+          <button onClick={() => handleDelete(post.id)}>Excluir</button>
         </div>
       </div>
     </article>
